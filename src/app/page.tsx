@@ -1,10 +1,18 @@
-import Image from 'next/image'
-import Navbar from './navbar'
+
+import Navbar from "./navbar";
+import Experience from "./experience";
+import SocialWheel from "./social-wheel";
+
 
 export default function Home() {
+  
+
   return (
     <main className="flex flex-col">
-      <Navbar/>
+      <Navbar />
+      <Experience/>
+      <SocialWheel/>
+    
     </main>
-  )
+  );
 }
