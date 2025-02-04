@@ -10,7 +10,7 @@ export default function Experience() {
     },
     {
       title: "See my projects",
-      link: "/work",
+      link: "/projects",
     },
   ];
 
