@@ -1,7 +1,7 @@
 
 import Navbar from "./navbar";
-import Experience from "./experience";
-import SocialWheel from "./social-wheel";
+import Experience from "./home";
+
 
 
 export default function Home() {
@@ -11,7 +11,6 @@ export default function Home() {
     <main className="flex flex-col">
       <Navbar />
       <Experience/>
-      <SocialWheel/>
     
     </main>
   );
