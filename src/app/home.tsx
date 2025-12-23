@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FaGithub, FaLinkedin, FaFilePdf, FaFolderOpen } from "react-icons/fa";
+import MouseGlow from "./shared/mouseglow";
 
 export default function Home() {
   const socials = [
@@ -9,7 +10,7 @@ export default function Home() {
       icon: <FaGithub />,
     },
     {
-      href: "https://linkedin.com/in/yourusername",
+      href: "https://linkedin.com/in/safwan-kader",
       label: "LinkedIn",
       icon: <FaLinkedin />,
     },
@@ -29,8 +30,9 @@ export default function Home() {
 
   return (
     <div className="introduction flex flex-col items-center justify-center text-center h-screen mt-[-8rem]">
-      <div>
-        <div className="text-xl font-semibold">Hi! My name is</div>
+      <div> <MouseGlow className="mouse-glow" />
+
+        <div className="text-xl text-white font-semibold">Hi! My name is</div>
 
         <div className="header font-bold">
           {name.split("").map((ch, i) =>
@@ -48,7 +50,7 @@ export default function Home() {
           )}
         </div>
 
-        <div className="text-xl font-semibold">Software Engineer</div>
+        <div className="text-xl text-white font-semibold">Software Engineer</div>
       </div>
 
       {/* Social Icons */}
@@ -61,7 +63,7 @@ export default function Home() {
             aria-label={label}
             className="
               text-3xl
-              text-[#7765E3]
+              text-white
               transition
               transform
               hover:scale-110

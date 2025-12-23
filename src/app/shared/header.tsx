@@ -17,7 +17,7 @@ export default function Header() {
     <div className="flex items-center mt-3">
       {/* Use ReactSVG to render the SVG image */}
       <Image
-              src="/logo.svg"
+              src="/logo-white.svg"
               alt="Safwan Logo"
               width={60}
               height={24}

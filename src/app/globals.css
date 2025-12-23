@@ -26,11 +26,210 @@
   }
 }
 
+
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  background:
+    linear-gradient(135deg,
+      #C7B4C6 15%,
+      #7A6FDB 70%,
+      #5f69f7 95%);
+  min-height: 100vh;
+}
+
+/* Logo pill container */
+.logo-pill {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+
+  transition:
+    transform 0.18s ease,
+    background-color 0.25s ease,
+    box-shadow 0.25s ease;
+
+  cursor: pointer;
+}
+
+/* Hover */
+.logo-pill:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+/* Active / click */
+.logo-pill:active {
+  transform: scale(0.92);
+}
+
+
+/* ---- Dock Navbar ---- */
+
+.navbar-shell {
+  width: 100%;
+  padding: 1rem;
+}
+
+.navbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* center the dock cleanly */
+.navbar-center {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.nav-dock {
+  border-radius: 9999px;
+  overflow: hidden;
+  /* IMPORTANT: clips blur artifacts */
+  transform: translateZ(0);
+  /* reduces 1px seam artifacts */
+  background-clip: padding-box;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  /* stabilizes edges */
+}
+
+
+/* the pill dock container */
+.navbar-dock {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 8px;
+  border-radius: 9999px;
+
+  background: rgba(15, 23, 42, 0.35);
+  /* slate-ish */
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  /* border without “hard seams” */
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.nav-dock a,
+.nav-dock button {
+  outline: none;
+}
+
+/* Optional: still keep accessibility (keyboard focus) but make it match your theme */
+.nav-dock a:focus-visible,
+.nav-dock button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.18);
+}
+
+/* each nav item */
+.navbar-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 18px;
+  border-radius: 9999px;
+
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 16px;
+
+  color: rgba(255, 255, 255, 0.60);
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.navbar-item:hover {
+  background: rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* active item */
+.navbar-item.active {
+  background: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 1);
+}
+
+/* icon sizing */
+.navbar-item .nav-icon {
+  display: inline-flex;
+  font-size: 20px;
+  opacity: 0.9;
+}
+
+/* optional: subtle hover lift (safe, no seams) */
+.navbar-item:hover {
+  transform: translateY(-1px);
+}
+
+/* Right-side button area */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Make your existing icon button match the dock */
+.icon-button.nav-download {
+  width: 44px;
+  height: 44px;
+  background: rgba(15, 23, 42, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+}
+
+.icon-button.nav-download:hover {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.icon-button.nav-download .download-icon {
+  color: rgba(255, 255, 255, 0.80);
+}
+
+.icon-button.nav-download:hover .download-icon {
+  color: white;
+}
+
+/* If you ever see 1px seams on some monitors, this helps */
+.navbar-dock,
+.navbar-item {
+  transform: translateZ(0);
+}
+
+
+/* Old Navbar */
+
+
+.logo {
+  transition: transform 200ms ease-out;
+  will-change: transform;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+}
+
+.logo:active {
+  transform: scale(0.9);
 }
 
 .button:hover {
@@ -82,7 +281,7 @@ body {
   border-left: 2px solid #7765E3;
   border-bottom: 2px solid #266BF1;
   border-right: 2px solid #266BF1; */
-  transform: translateY(-1px); 
+  transform: translateY(-1px);
   box-shadow: rgba(119, 101, 227, 0.4) 4px 4px, rgba(119, 101, 227, 0.3) 8px 8px,
     rgba(119, 101, 227, 0.2) 12px 12px;
 }
@@ -117,13 +316,9 @@ body {
   /* so transform affects each character */
   animation: waveY 4.0s ease-in-out infinite;
   will-change: transform;
-  color: #00affa;
+  color: white;
 }
 
-.navbar-button:active {
-  box-shadow: none;
-  transform: translateY(0);
-}
 
 .navbar-button-page-active {
 
@@ -161,7 +356,7 @@ body {
   box-shadow: rgba(38, 107, 241, 0.25) 0 10px 10px;
 }
 
-.navbar-button-page-active:active{
+.navbar-button-page-active:active {
   transform: translateY(2px);
 }
 
@@ -238,6 +433,27 @@ body {
   transition-property: width, left;
 }
 
+/* subtle cursor-following glow */
+.mouse-glow {
+  --mx: 50vw;
+  --my: 50vh;
+
+  background:
+    /* subtle "light" spotlight so it shows on dark + saturated areas */
+    radial-gradient(700px circle at var(--mx) var(--my),
+      rgba(255, 255, 255, 0.10),
+      transparent 60%),
+    /* your palette glow */
+    radial-gradient(900px circle at calc(var(--mx) + 120px) calc(var(--my) + 80px),
+      rgba(0, 175, 250, 0.14),
+      transparent 65%),
+    radial-gradient(1100px circle at calc(var(--mx) - 160px) calc(var(--my) - 120px),
+      rgba(121, 83, 205, 0.12),
+      transparent 70%);
+  mix-blend-mode: soft-light;
+}
+
+
 /* arrow animation */
 @keyframes slide-right {
   0% {
@@ -252,21 +468,80 @@ body {
 }
 
 
-/* This class will position the SocialWheel component at the bottom right corner */
-.social-wheel-bottom-right {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  margin: 10px;
-  /* Add margin to the SocialWheel */
+.icon-button {
+  width: 50px;
+  height: 50px;
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: white;
+  border-radius: 50%;
+  border: none;
+
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.15s ease;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.13);
+}
+
+/* icon */
+.download-icon {
+  font-size: 18px;
+  color: black;
+  transform-origin: top;
+}
+
+.download-icon:hover {
+  color: white;
+}
+
+/* hover */
+.icon-button:hover {
+  background-color: #266BF1;
+}
+
+.icon-button:hover .download-icon {
+  animation: downloadWiggle 0.9s both;
+}
+
+/* active press */
+.icon-button:active {
+  transform: scale(0.85);
+}
+
+/* download-style wiggle animation */
+@keyframes downloadWiggle {
+
+  0%,
+  100% {
+    transform-origin: top;
+  }
+
+  15% {
+    transform: translateY(2px);
+  }
+
+  30% {
+    transform: translateY(-2px);
+  }
+
+  45% {
+    transform: translateY(1px);
+  }
+
+  60% {
+    transform: translateY(-1px);
+  }
+
+  75% {
+    transform: translateY(0.5px);
+  }
 }
 
 
 
-.button:active {
-  transform: translate(1px, 1px);
-  transition-duration: 0.2s;
-}
 
 
 .main {
