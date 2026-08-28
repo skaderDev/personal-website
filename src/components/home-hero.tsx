@@ -1,7 +1,23 @@
+import Image from "next/image";
 import Link from "next/link";
 import { FaGithub, FaLinkedin, FaFolderOpen } from "react-icons/fa";
 
 export default function Home() {
+  const galleryImages = [
+    {
+      src: "/images/nyc/brooklyn-bridge.webp",
+      position: "center center",
+    },
+    {
+      src: "/images/nyc/downtown-street.webp",
+      position: "center center",
+    },
+    {
+      src: "/images/nyc/midtown-sunset.webp",
+      position: "center center",
+    },
+  ];
+
   const socials = [
     {
       href: "https://github.com/skaderDev",
@@ -23,8 +39,24 @@ export default function Home() {
   const name = "Safwan Kader";
 
   return (
-    <section className="flex min-h-[calc(100svh-8rem)] flex-col items-center justify-center py-16 text-center">
-      <div>
+    <section className="home-hero">
+      <div className="nyc-gallery" aria-hidden="true">
+        {galleryImages.map((image) => (
+          <div className="nyc-gallery-panel" key={image.src}>
+            <Image
+              src={image.src}
+              alt=""
+              fill
+              priority
+              sizes="33vw"
+              style={{ objectFit: "cover", objectPosition: image.position }}
+            />
+          </div>
+        ))}
+        <div className="nyc-gallery-overlay" />
+      </div>
+
+      <div className="home-hero-content">
         <p className="text-lg font-semibold text-white/80 sm:text-xl">Hi, my name is</p>
 
         <div className="header font-bold">
@@ -50,28 +82,20 @@ export default function Home() {
           I work on platform systems for notifications and email deliverability,
           and build thoughtful full-stack products from New York City.
         </p>
-      </div>
-
-      <div className="mt-8 flex gap-6">
-        {socials.map(({ href, label, icon }) => (
-          <Link
-            key={label}
-            href={href}
-            target={href.startsWith("http") ? "_blank" : undefined}
-            rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-            aria-label={label}
-            className="
-              text-3xl
-              text-white
-              transition
-              transform
-              hover:scale-110
-              hover:text-[#00affa]
-            "
-          >
-            {icon}
-          </Link>
-        ))}
+        <div className="mt-8 flex justify-center gap-6">
+          {socials.map(({ href, label, icon }) => (
+            <Link
+              key={label}
+              href={href}
+              target={href.startsWith("http") ? "_blank" : undefined}
+              rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+              aria-label={label}
+              className="transform text-3xl text-white transition hover:scale-110 hover:text-[#f4c542]"
+            >
+              {icon}
+            </Link>
+          ))}
+        </div>
       </div>
 
     </section>
