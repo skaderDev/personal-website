@@ -12,7 +12,7 @@ export default function ProjectCard({
   highlights = [],
 }: ProjectCardProps) {
   return (
-    <article className="flex h-full flex-col rounded-2xl border border-white/15 bg-[#312e67] p-6 shadow-[0_12px_30px_rgba(24,20,62,0.24)] transition-colors duration-200 hover:border-white/25 hover:bg-[#393574]">
+    <article className="project-card flex h-full flex-col rounded-2xl p-6">
       <h3 className="text-lg font-bold text-white">{title}</h3>
       <p className="mt-2 text-white/70">{description}</p>
 

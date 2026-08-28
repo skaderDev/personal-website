@@ -10,9 +10,7 @@ export default function ContentCard({
   return (
     <div
       className={[
-        "rounded-2xl border border-white/15",
-        "bg-[#312e67]",
-        "shadow-[0_12px_30px_rgba(24,20,62,0.24)]",
+        "content-card rounded-2xl",
         "p-6",
         className,
       ].join(" ")}

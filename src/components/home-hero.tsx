@@ -58,7 +58,7 @@ export default function Home() {
               target={href.startsWith("http") ? "_blank" : undefined}
               rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
               aria-label={label}
-              className="transform text-3xl text-white transition hover:scale-110 hover:text-[#f4c542]"
+              className="transform text-3xl text-white transition hover:scale-110 hover:text-[#d6b36a]"
             >
               {icon}
             </Link>
