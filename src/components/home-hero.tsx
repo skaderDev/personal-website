@@ -1,23 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { FaGithub, FaLinkedin, FaFolderOpen } from "react-icons/fa";
+import NycGallery from "./nyc-gallery";
 
 export default function Home() {
-  const galleryImages = [
-    {
-      src: "/images/nyc/brooklyn-bridge.webp",
-      position: "center center",
-    },
-    {
-      src: "/images/nyc/downtown-street.webp",
-      position: "center center",
-    },
-    {
-      src: "/images/nyc/midtown-sunset.webp",
-      position: "center center",
-    },
-  ];
-
   const socials = [
     {
       href: "https://github.com/skaderDev",
@@ -40,21 +25,7 @@ export default function Home() {
 
   return (
     <section className="home-hero">
-      <div className="nyc-gallery" aria-hidden="true">
-        {galleryImages.map((image) => (
-          <div className="nyc-gallery-panel" key={image.src}>
-            <Image
-              src={image.src}
-              alt=""
-              fill
-              priority
-              sizes="33vw"
-              style={{ objectFit: "cover", objectPosition: image.position }}
-            />
-          </div>
-        ))}
-        <div className="nyc-gallery-overlay" />
-      </div>
+      <NycGallery />
 
       <div className="home-hero-content">
         <p className="text-lg font-semibold text-white/80 sm:text-xl">Hi, my name is</p>
