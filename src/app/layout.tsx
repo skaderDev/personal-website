@@ -2,6 +2,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import Navbar from "@/components/navbar";
 import MouseGlow from "@/components/mouseglow";
+import NycGallery from "@/components/nyc-gallery";
+import RouteTransition from "@/components/route-transition";
 
 const productionHost =
   process.env.NEXT_PUBLIC_SITE_URL ??
@@ -48,10 +50,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
+        <NycGallery />
         <MouseGlow className="mouse-glow" />
         <Navbar />
-        <main id="main-content" className="px-4 pb-16 pt-4 sm:px-6 sm:pt-6">
-          <div className="mx-auto w-full max-w-5xl">{children}</div>
+        <main
+          id="main-content"
+          className="site-main px-4 pb-16 pt-4 sm:px-6 sm:pt-6"
+        >
+          <div className="mx-auto w-full max-w-5xl">
+            <RouteTransition>{children}</RouteTransition>
+          </div>
         </main>
       </body>
     </html>

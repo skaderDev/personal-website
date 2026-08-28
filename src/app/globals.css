@@ -23,6 +23,7 @@ html {
 
 body {
   min-height: 100vh;
+  overflow-x: hidden;
   color: white;
   background:
     radial-gradient(
@@ -150,6 +151,68 @@ body {
 
 /* Home */
 
+.site-main {
+  position: relative;
+  z-index: 10;
+}
+
+.route-transition-frame {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+.route-page {
+  width: 100%;
+}
+
+.route-page-awaiting {
+  visibility: hidden;
+}
+
+.route-page-snapshot {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+}
+
+.route-page-exit {
+  animation: route-page-exit 520ms cubic-bezier(0.76, 0, 0.24, 1) both;
+  will-change: transform, opacity;
+}
+
+.route-page-enter {
+  animation: route-page-enter 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: transform, opacity;
+}
+
+@keyframes route-page-exit {
+  from {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate3d(-105vw, 0, 0);
+    opacity: 0.35;
+  }
+}
+
+@keyframes route-page-enter {
+  from {
+    transform: translate3d(105vw, 0, 0);
+    opacity: 0.35;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
 .home-hero {
   position: relative;
   z-index: 10;
@@ -214,6 +277,7 @@ body {
 .home-hero-content {
   position: relative;
   z-index: 2;
+  width: 100%;
   max-width: 48rem;
   padding: 2rem;
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.72);
@@ -237,8 +301,10 @@ body {
 
 .header {
   margin: 0.25rem 0;
-  font-size: clamp(3rem, 11vw, 6rem);
+  font-size: clamp(2.1rem, 10vw, 6rem);
   line-height: 1.05;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
 }
 
 .wave-char {
@@ -249,6 +315,7 @@ body {
 }
 
 .mouse-glow {
+  z-index: 1;
   --mx: 50vw;
   --my: 50vh;
   background:

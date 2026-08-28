@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { FaGithub, FaLinkedin, FaFolderOpen } from "react-icons/fa";
-import NycGallery from "./nyc-gallery";
 
 export default function Home() {
   const socials = [
@@ -25,8 +24,6 @@ export default function Home() {
 
   return (
     <section className="home-hero">
-      <NycGallery />
-
       <div className="home-hero-content">
         <p className="text-lg font-semibold text-white/80 sm:text-xl">Hi, my name is</p>
 
@@ -68,7 +65,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-
     </section>
   );
 }
