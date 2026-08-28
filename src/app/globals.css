@@ -138,9 +138,7 @@ body {
 
 .navbar-item:focus-visible,
 .logo-pill:focus-visible,
-.contact-link:focus-visible,
-.gallery-arrow:focus-visible,
-.gallery-dot:focus-visible {
+.contact-link:focus-visible {
   outline: 3px solid rgba(255, 255, 255, 0.45);
   outline-offset: 3px;
 }
@@ -173,16 +171,27 @@ body {
 
 .nyc-gallery-track {
   display: flex;
-  width: 100%;
+  width: max-content;
   height: 100%;
-  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  animation: gallery-scroll 100s linear infinite;
   will-change: transform;
 }
 
 .nyc-gallery-slide {
   position: relative;
-  min-width: 100%;
+  flex: 0 0 calc(100vw / 3);
   height: 100%;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+@keyframes gallery-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
 }
 
 .nyc-gallery-overlay {
@@ -200,61 +209,6 @@ body {
       rgba(12, 16, 42, 0.6)
   );
   pointer-events: none;
-}
-
-.nyc-gallery-controls {
-  position: absolute;
-  z-index: 3;
-  right: 0;
-  bottom: 1.5rem;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-}
-
-.gallery-arrow,
-.gallery-dot {
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  background: #10152e;
-  cursor: pointer;
-  transition: background-color var(--ease-out), border-color var(--ease-out);
-}
-
-.gallery-arrow {
-  display: inline-flex;
-  width: 2.25rem;
-  height: 2.25rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  font-size: 1.25rem;
-}
-
-.gallery-arrow:hover,
-.gallery-dot:hover,
-.gallery-dot.active {
-  border-color: rgba(255, 255, 255, 0.72);
-  background: #393574;
-}
-
-.gallery-dots {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.gallery-dot {
-  width: 0.7rem;
-  height: 0.7rem;
-  padding: 0;
-  border-radius: 9999px;
-}
-
-.gallery-dot.active {
-  width: 1.6rem;
 }
 
 .home-hero-content {
@@ -398,6 +352,6 @@ body {
   }
 
   .nyc-gallery-track {
-    transition: none;
+    animation: none;
   }
 }
