@@ -5,6 +5,23 @@ import MouseGlow from "@/components/mouseglow";
 import NycGallery from "@/components/nyc-gallery";
 import HorizontalPortfolio from "@/components/horizontal-portfolio";
 
+const themeScript = `
+  (() => {
+    try {
+      const savedTheme = localStorage.getItem("color-theme");
+      const systemTheme = matchMedia("(prefers-color-scheme: light)").matches
+        ? "light"
+        : "dark";
+      document.documentElement.dataset.theme =
+        savedTheme === "light" || savedTheme === "dark"
+          ? savedTheme
+          : systemTheme;
+    } catch {
+      document.documentElement.dataset.theme = "dark";
+    }
+  })();
+`;
+
 const productionHost =
   process.env.NEXT_PUBLIC_SITE_URL ??
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
@@ -48,7 +65,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout() {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>
         <NycGallery />
         <MouseGlow className="mouse-glow" />

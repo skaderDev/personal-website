@@ -8,6 +8,7 @@ import { HiOutlineUser } from "react-icons/hi2";
 import { HiOutlineBriefcase } from "react-icons/hi2";
 import { HiOutlineFolder } from "react-icons/hi2";
 import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
+import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi2";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -23,6 +24,13 @@ export default function Navbar() {
   const isActive = (link: string) => {
     if (link === "/") return pathname === "/";
     return pathname === link || pathname.startsWith(link + "/");
+  };
+
+  const toggleTheme = () => {
+    const root = document.documentElement;
+    const nextTheme = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = nextTheme;
+    localStorage.setItem("color-theme", nextTheme);
   };
 
   return (
@@ -57,6 +65,17 @@ export default function Navbar() {
             ))}
           </nav>
         </div>
+
+        <button
+          type="button"
+          className="theme-toggle"
+          onClick={toggleTheme}
+          aria-label="Toggle light and dark mode"
+          title="Toggle light and dark mode"
+        >
+          <HiOutlineSun className="theme-icon theme-icon-sun" aria-hidden="true" />
+          <HiOutlineMoon className="theme-icon theme-icon-moon" aria-hidden="true" />
+        </button>
       </div>
     </header>
   );
