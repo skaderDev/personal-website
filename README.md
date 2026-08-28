@@ -28,8 +28,8 @@ Push the `main` branch to GitHub, then open **Settings → Pages** in the
 repository and select **GitHub Actions** as the source. The included workflow
 builds and deploys the site on every push to `main`.
 
-GitHub Pages automatically supplies the correct repository base path during the
-build. A custom domain can be added later from the same Pages settings screen.
+The deployment is configured for the custom root domain `safwan.io`. If the
+domain changes, update `NEXT_PUBLIC_SITE_URL` in the Pages workflow.
 
 Before publishing, confirm that the professional details in `src/app/about`,
 `src/app/experience`, and `src/app/projects` are current.
