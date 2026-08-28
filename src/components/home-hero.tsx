@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { FaGithub, FaLinkedin, FaFilePdf, FaFolderOpen } from "react-icons/fa";
-import MouseGlow from "./shared/mouseglow";
+import { FaGithub, FaLinkedin, FaFolderOpen } from "react-icons/fa";
 
 export default function Home() {
   const socials = [
@@ -15,11 +14,6 @@ export default function Home() {
       icon: <FaLinkedin />,
     },
     {
-      href: "/resume.pdf",
-      label: "Resume",
-      icon: <FaFilePdf />,
-    },
-    {
       href: "/projects",
       label: "Projects",
       icon: <FaFolderOpen />,
@@ -29,10 +23,9 @@ export default function Home() {
   const name = "Safwan Kader";
 
   return (
-    <div className="introduction flex flex-col items-center justify-center text-center h-screen mt-[-8rem]">
-      <div> <MouseGlow className="mouse-glow" />
-
-        <div className="text-xl text-white font-semibold">Hi! My name is</div>
+    <section className="flex min-h-[calc(100svh-8rem)] flex-col items-center justify-center py-16 text-center">
+      <div>
+        <p className="text-lg font-semibold text-white/80 sm:text-xl">Hi, my name is</p>
 
         <div className="header font-bold">
           {name.split("").map((ch, i) =>
@@ -50,16 +43,22 @@ export default function Home() {
           )}
         </div>
 
-        <div className="text-xl text-white font-semibold">Software Engineer</div>
+        <p className="text-lg font-semibold text-white sm:text-xl">
+          Software Engineer at Compass
+        </p>
+        <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
+          I work on platform systems for notifications and email deliverability,
+          and build thoughtful full-stack products from New York City.
+        </p>
       </div>
 
-      {/* Social Icons */}
-      <div className="mt-8 flex gap-8">
+      <div className="mt-8 flex gap-6">
         {socials.map(({ href, label, icon }) => (
           <Link
             key={label}
             href={href}
-            target="_blank"
+            target={href.startsWith("http") ? "_blank" : undefined}
+            rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
             aria-label={label}
             className="
               text-3xl
@@ -75,7 +74,6 @@ export default function Home() {
         ))}
       </div>
 
-      <div className="social-wheel-bottom-right" />
-    </div>
+    </section>
   );
 }

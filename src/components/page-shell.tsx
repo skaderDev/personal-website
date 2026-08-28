@@ -6,9 +6,9 @@ type PageShellProps = {
 
 export default function PageShell({ title, subtitle, children }: PageShellProps) {
   return (
-    <section className="mt-10">
+    <section className="mt-6 sm:mt-10">
       <header className="mb-6 text-center">
-        <h1 className="text-4xl font-extrabold tracking-tight text-white">
+        <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
           {title}
         </h1>
         {subtitle ? (

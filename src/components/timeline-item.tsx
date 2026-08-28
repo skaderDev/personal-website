@@ -16,7 +16,7 @@ export default function TimelineItem({
       <div className="absolute left-0 top-2 h-3 w-3 rounded-full bg-white/70" />
       <div className="absolute left-[5px] top-6 h-full w-px bg-white/15" />
 
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col items-start justify-between gap-2 sm:flex-row sm:gap-4">
         <div>
           <h3 className="text-lg font-bold text-white">{title}</h3>
           <p className="text-white/70">{subtitle}</p>

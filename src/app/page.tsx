@@ -1,16 +1,6 @@
 
-import Navbar from "./shared/navbar";
-import Experience from "./home";
-
-
+import HomeHero from "@/components/home-hero";
 
 export default function Home() {
-  
-
-  return (
-    <main className="flex flex-col">
-      <Experience/>
-    
-    </main>
-  );
+  return <HomeHero />;
 }

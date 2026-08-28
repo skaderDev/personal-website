@@ -2,669 +2,283 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Foundation */
+
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 255, 255, 255;
+  color-scheme: dark;
+  --surface: #312e67;
+  --surface-hover: #393574;
+  --surface-border: rgba(255, 255, 255, 0.16);
+  --ease-out: 180ms ease;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 0, 0, 0;
-    --background-start-rgb: 255, 255, 255;
-    --background-end-rgb: 255, 255, 255;
-  }
+* {
+  box-sizing: border-box;
 }
 
-@keyframes textShine {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  100% {
-    background-position: 100% 50%;
-  }
+html {
+  min-width: 320px;
+  background: #615fd2;
 }
-
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background:
-    linear-gradient(135deg,
-      #C7B4C6 15%,
-      #7A6FDB 70%,
-      #5f69f7 95%);
   min-height: 100vh;
+  color: white;
+  background:
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(255, 255, 255, 0.16),
+      transparent 32rem
+    ),
+    linear-gradient(135deg, #b49cb2 0%, #786ed5 55%, #535ff0 100%);
 }
 
-/* Logo pill container */
-.logo-pill {
-  width: 48px;
-  height: 48px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-
-  box-shadow:
-    0 6px 18px rgba(0, 0, 0, 0.25),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.18);
-
-  transition:
-    transform 0.18s ease,
-    background-color 0.25s ease,
-    box-shadow 0.25s ease;
-
-  cursor: pointer;
+::selection {
+  color: white;
+  background: rgba(15, 23, 42, 0.55);
 }
 
-/* Hover */
-.logo-pill:hover {
-  background: rgba(255, 255, 255, 0.18);
-  transform: translateY(-1px);
-}
-
-/* Active / click */
-.logo-pill:active {
-  transform: scale(0.92);
-}
-
-
-/* ---- Dock Navbar ---- */
+/* Navigation */
 
 .navbar-shell {
+  position: sticky;
+  top: 0;
+  z-index: 50;
   width: 100%;
-  padding: 1rem;
+  padding: 0.875rem 1rem;
+  background: linear-gradient(
+    to bottom,
+    rgba(104, 98, 200, 0.62),
+    rgba(104, 98, 200, 0.18) 72%,
+    transparent
+  );
 }
 
 .navbar-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 48px;
   align-items: center;
-  justify-content: space-between;
+  max-width: 64rem;
+  margin: 0 auto;
 }
 
-/* center the dock cleanly */
-.navbar-center {
-  display: flex;
-  justify-content: center;
-  flex: 1;
-}
-
-.nav-dock {
-  border-radius: 9999px;
-  overflow: hidden;
-  /* IMPORTANT: clips blur artifacts */
-  transform: translateZ(0);
-  /* reduces 1px seam artifacts */
-  background-clip: padding-box;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  /* stabilizes edges */
-}
-
-
-/* the pill dock container */
+.logo-pill,
 .navbar-dock {
+  border: 1px solid var(--surface-border);
+  background: var(--surface);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+.logo-pill {
   display: flex;
+  width: 48px;
+  height: 48px;
   align-items: center;
-  gap: 6px;
-
-  padding: 8px;
+  justify-content: center;
   border-radius: 9999px;
-
-  background: rgba(15, 23, 42, 0.35);
-  /* slate-ish */
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-
-  /* border without “hard seams” */
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  transition: background-color var(--ease-out), border-color var(--ease-out);
 }
 
-.nav-dock a,
-.nav-dock button {
-  outline: none;
+.logo-pill:hover {
+  border-color: rgba(255, 255, 255, 0.24);
+  background: var(--surface-hover);
 }
-
-/* Optional: still keep accessibility (keyboard focus) but make it match your theme */
-.nav-dock a:focus-visible,
-.nav-dock button:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.18);
-}
-
-/* each nav item */
-.navbar-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-
-  padding: 10px 18px;
-  border-radius: 9999px;
-
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 16px;
-
-  color: rgba(255, 255, 255, 0.60);
-  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
-}
-
-.navbar-item:hover {
-  background: rgba(255, 255, 255, 0.10);
-  color: rgba(255, 255, 255, 0.95);
-}
-
-/* active item */
-.navbar-item.active {
-  background: rgba(255, 255, 255, 0.14);
-  color: rgba(255, 255, 255, 1);
-}
-
-/* icon sizing */
-.navbar-item .nav-icon {
-  display: inline-flex;
-  font-size: 20px;
-  opacity: 0.9;
-}
-
-/* optional: subtle hover lift (safe, no seams) */
-.navbar-item:hover {
-  transform: translateY(-1px);
-}
-
-/* Right-side button area */
-.navbar-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Make your existing icon button match the dock */
-.icon-button.nav-download {
-  width: 44px;
-  height: 44px;
-  background: rgba(15, 23, 42, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
-}
-
-.icon-button.nav-download:hover {
-  background: rgba(255, 255, 255, 0.10);
-}
-
-.icon-button.nav-download .download-icon {
-  color: rgba(255, 255, 255, 0.80);
-}
-
-.icon-button.nav-download:hover .download-icon {
-  color: white;
-}
-
-/* If you ever see 1px seams on some monitors, this helps */
-.navbar-dock,
-.navbar-item {
-  transform: translateZ(0);
-}
-
-
-/* Old Navbar */
-
 
 .logo {
-  transition: transform 200ms ease-out;
-  will-change: transform;
+  transition: transform var(--ease-out);
 }
 
-.logo:hover {
-  transform: scale(1.1);
+.logo-pill:hover .logo {
+  transform: scale(1.08);
 }
 
-.logo:active {
-  transform: scale(0.9);
+.logo-pill:active .logo {
+  transform: scale(0.94);
 }
 
-.button:hover {
-  font-weight: bold;
-  transition-duration: 0.2s;
-}
-
-.navbar-button {
-
-  background: rgb(255, 255, 255);
-  color: #7765E3;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  /* border-bottom: 2px solid #7765E3;
-  border-right: 2px solid #7765E3;
-  border-top: 2px solid rgb(220, 220, 220);
-  border-left: 2px solid rgb(220, 220, 220); */
-  transition-duration: 300ms;
-  transition-property: border-top, border-left, border-bottom, border-right, box-shadow;
-  font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-
-  width: 8rem;
-  height: 40px;
+.navbar-center {
   display: flex;
-  align-items: center;
+  min-width: 0;
   justify-content: center;
-  gap: 10px;
+}
 
-  display: inline-block;
+.navbar-dock {
+  display: flex;
+  max-width: 100%;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem;
+  border-radius: 9999px;
+}
 
-  font-weight: 600;
-  outline: none;
-  padding: 0px 15px;
-  text-align: center;
+.navbar-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.625rem 1rem;
+  border-radius: 9999px;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.95rem;
+  font-weight: 700;
   text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  will-change: transform;
+  white-space: nowrap;
+  transition: color var(--ease-out), background-color var(--ease-out);
 }
 
-.navbar-button:disabled {
-  pointer-events: none;
+.navbar-item:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
 }
 
-.navbar-button:hover {
-
-  /* border-top: 2px solid ;
-  border-left: 2px solid #7765E3;
-  border-bottom: 2px solid #266BF1;
-  border-right: 2px solid #266BF1; */
-  transform: translateY(-1px);
-  box-shadow: rgba(119, 101, 227, 0.4) 4px 4px, rgba(119, 101, 227, 0.3) 8px 8px,
-    rgba(119, 101, 227, 0.2) 12px 12px;
+.navbar-item.active {
+  color: white;
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
-.navbar-button:active {
-  box-shadow: none;
-  transform: translateY(0);
+.navbar-item:focus-visible,
+.logo-pill:focus-visible,
+.contact-link:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.45);
+  outline-offset: 3px;
 }
 
-@keyframes waveY {
+.nav-icon {
+  display: inline-flex;
+  font-size: 1.25rem;
+}
 
+/* Home */
+
+@keyframes wave-y {
   0%,
   100% {
     transform: translateY(0);
   }
-
   25% {
-    transform: translateY(-10px);
+    transform: translateY(-0.5rem);
   }
-
   50% {
     transform: translateY(0);
   }
-
   75% {
-    transform: translateY(10px);
+    transform: translateY(0.5rem);
   }
+}
+
+.header {
+  margin: 0.25rem 0;
+  font-size: clamp(3rem, 11vw, 6rem);
+  line-height: 1.05;
 }
 
 .wave-char {
   display: inline-block;
-  /* so transform affects each character */
-  animation: waveY 4.0s ease-in-out infinite;
-  will-change: transform;
   color: white;
-}
-
-
-.navbar-button-page-active {
-
-  background: rgb(255, 255, 255);
-  cursor: pointer;
-  border-radius: 0.5rem;
-  /* border-bottom: 2px solid #7765E3;
-  border-right: 2px solid #7765E3;
-  border-top: 2px solid rgb(220, 220, 220);
-  border-left: 2px solid rgb(220, 220, 220); */
-  font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-
-  width: 8rem;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-
-  display: inline-block;
-
-  font-weight: 600;
-  outline: none;
-  padding: 0px 15px;
-  text-align: center;
-  text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+  animation: wave-y 4s ease-in-out infinite;
   will-change: transform;
-
-
-  border-color: #266BF1;
-  color: #266BF1;
-  box-shadow: rgba(38, 107, 241, 0.25) 0 10px 10px;
 }
 
-.navbar-button-page-active:active {
-  transform: translateY(2px);
-}
-
-/* Apply the gradient to a wrapper */
-.header-gradient {
-  background: linear-gradient(to right,
-      #7953cd 20%,
-      #00affa 30%,
-      #0190cd 70%,
-      #764ada 80%);
-  background-size: 500% auto;
-  animation: textShine 5s ease-in-out infinite alternate;
-
-  /* The magic */
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-
-/* Letters inherit the clipped gradient */
-.header-gradient .wave-char {
-  -webkit-text-fill-color: transparent;
-  /* important for Safari/Chrome */
-  color: transparent;
-}
-
-.header {
-  /* background: linear-gradient(
-    to right,
-    #7953cd 20%,
-    #00affa 30%,
-    #0190cd 70%,
-    #764ada 80%
-); */
-  font-size: 6rem;
-}
-
-.header-button {
-  font-size: 18px;
-  color: #7765E3;
-  font-family: inherit;
-  cursor: pointer;
-  position: relative;
-  border: none;
-  background: none;
-  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
-  transition-duration: 400ms;
-  transition-property: color;
-}
-
-.header-button:focus,
-.header-button:hover {
-  color: #C8ADC0;
-}
-
-.header-button:focus:after,
-.header-button:hover:after {
-  width: 100%;
-  left: 0%;
-}
-
-.header-button:after {
-  content: "";
-  pointer-events: none;
-  bottom: -2px;
-  left: 50%;
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  background-color: #C8ADC0;
-  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
-  transition-duration: 400ms;
-  transition-property: width, left;
-}
-
-/* subtle cursor-following glow */
 .mouse-glow {
   --mx: 50vw;
   --my: 50vh;
-
   background:
-    /* subtle "light" spotlight so it shows on dark + saturated areas */
-    radial-gradient(700px circle at var(--mx) var(--my),
-      rgba(255, 255, 255, 0.10),
-      transparent 60%),
-    /* your palette glow */
-    radial-gradient(900px circle at calc(var(--mx) + 120px) calc(var(--my) + 80px),
+    radial-gradient(
+      42rem circle at var(--mx) var(--my),
+      rgba(255, 255, 255, 0.11),
+      transparent 60%
+    ),
+    radial-gradient(
+      56rem circle at calc(var(--mx) + 7rem) calc(var(--my) + 5rem),
       rgba(0, 175, 250, 0.14),
-      transparent 65%),
-    radial-gradient(1100px circle at calc(var(--mx) - 160px) calc(var(--my) - 120px),
-      rgba(121, 83, 205, 0.12),
-      transparent 70%);
+      transparent 65%
+    );
   mix-blend-mode: soft-light;
 }
 
+/* Contact */
 
-/* arrow animation */
-@keyframes slide-right {
-  0% {
-    transform: translateX(-10px);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-
-.icon-button {
-  width: 50px;
-  height: 50px;
-  position: relative;
-
-  display: flex;
+.contact-link {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  background-color: white;
-  border-radius: 50%;
-  border: none;
-
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.15s ease;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.13);
-}
-
-/* icon */
-.download-icon {
-  font-size: 18px;
-  color: black;
-  transform-origin: top;
-}
-
-.download-icon:hover {
+  gap: 0.6rem;
+  padding: 0.8rem 1.1rem;
+  border: 1px solid var(--surface-border);
+  border-radius: 0.8rem;
   color: white;
+  background: rgba(255, 255, 255, 0.08);
+  font-weight: 700;
+  transition:
+    background-color var(--ease-out),
+    border-color var(--ease-out);
 }
 
-/* hover */
-.icon-button:hover {
-  background-color: #266BF1;
+.contact-link:hover {
+  border-color: rgba(255, 255, 255, 0.24);
+  background: var(--surface-hover);
 }
 
-.icon-button:hover .download-icon {
-  animation: downloadWiggle 0.9s both;
+.contact-link-primary {
+  color: #3d3990;
+  background: rgba(255, 255, 255, 0.92);
 }
 
-/* active press */
-.icon-button:active {
-  transform: scale(0.85);
-}
-
-/* download-style wiggle animation */
-@keyframes downloadWiggle {
-
-  0%,
-  100% {
-    transform-origin: top;
-  }
-
-  15% {
-    transform: translateY(2px);
-  }
-
-  30% {
-    transform: translateY(-2px);
-  }
-
-  45% {
-    transform: translateY(1px);
-  }
-
-  60% {
-    transform: translateY(-1px);
-  }
-
-  75% {
-    transform: translateY(0.5px);
-  }
-}
-
-
-
-
-
-.main {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
-}
-
-.up {
-  display: flex;
-  flex-direction: row;
-  gap: 0.5em;
-}
-
-.down {
-  display: flex;
-  flex-direction: row;
-  gap: 0.5em;
-}
-
-.card1 {
-  width: 90px;
-  height: 90px;
-  outline: none;
-  border: none;
+.contact-link-primary:hover {
   background: white;
-  border-radius: 90px 5px 5px 5px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  transition: .2s ease-in-out;
 }
 
-.instagram {
-  margin-top: 1.5em;
-  margin-left: 1.2em;
-  fill: #cc39a4;
+/* Responsive navigation */
+
+@media (max-width: 720px) {
+  .navbar-shell {
+    padding: 0.625rem 0.75rem;
+  }
+
+  .navbar-row {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 0.5rem;
+  }
+
+  .logo-pill {
+    width: 42px;
+    height: 42px;
+  }
+
+  .navbar-center {
+    justify-content: flex-end;
+  }
+
+  .navbar-dock {
+    gap: 0.15rem;
+    padding: 0.35rem;
+  }
+
+  .navbar-item {
+    min-width: 2.35rem;
+    justify-content: center;
+    padding: 0.55rem;
+  }
+
+  .nav-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
 }
 
-.card2 {
-  width: 90px;
-  height: 90px;
-  outline: none;
-  border: none;
-  background: white;
-  border-radius: 5px 90px 5px 5px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  transition: .2s ease-in-out;
-}
+/* Accessibility */
 
-.twitter {
-  margin-top: 1.5em;
-  margin-left: -.9em;
-  fill: #03A9F4;
-}
-
-.card3 {
-  width: 90px;
-  height: 90px;
-  outline: none;
-  border: none;
-  background: white;
-  border-radius: 5px 5px 5px 90px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  transition: .2s ease-in-out;
-}
-
-.github {
-  margin-top: -.6em;
-  margin-left: 1.2em;
-}
-
-.card4 {
-  width: 90px;
-  height: 90px;
-  outline: none;
-  border: none;
-  background: white;
-  border-radius: 5px 5px 90px 5px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  transition: .2s ease-in-out;
-}
-
-.discord {
-  margin-top: -.9em;
-  margin-left: -1.2em;
-  fill: #8c9eff;
-}
-
-.card1:hover {
-  cursor: pointer;
-  scale: 1.1;
-  background-color: #cc39a4;
-}
-
-.card1:hover .instagram {
-  fill: white;
-}
-
-.card2:hover {
-  cursor: pointer;
-  scale: 1.1;
-  background-color: #03A9F4;
-}
-
-.card2:hover .twitter {
-  fill: white;
-}
-
-.card3:hover {
-  cursor: pointer;
-  scale: 1.1;
-  background-color: black;
-}
-
-.card3:hover .github {
-  fill: white;
-}
-
-.card4:hover {
-  cursor: pointer;
-  scale: 1.1;
-  background-color: #8c9eff;
-}
-
-.card4:hover .discord {
-  fill: white;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

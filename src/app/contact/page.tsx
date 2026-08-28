@@ -1,57 +1,48 @@
-import PageShell from "../shared/page-shell";
-import GlassCard from "../shared/glass-card";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import PageShell from "@/components/page-shell";
+import ContentCard from "@/components/content-card";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Connect with Safwan Kader on LinkedIn or GitHub.",
+};
 
 export default function ContactPage() {
   return (
     <PageShell
       title="Contact"
-      subtitle="If you want to reach out, this is the cleanest way."
+      subtitle="Want to talk about software, cloud systems, or an interesting project?"
     >
-      <GlassCard>
-        <div className="grid gap-6 md:grid-cols-2">
-          <div>
-            <h2 className="text-xl font-bold text-white">Say hi</h2>
-            <p className="mt-2 text-white/70">
-              Email is best. You can also find me on GitHub / LinkedIn.
-            </p>
+      <ContentCard className="mx-auto max-w-2xl text-center">
+        <h2 className="text-2xl font-bold text-white">Let&apos;s connect</h2>
+        <p className="mx-auto mt-3 max-w-lg leading-relaxed text-white/70">
+          I&apos;m based in New York City. LinkedIn is the best place to send me a
+          message, or you can browse what I&apos;m building on GitHub.
+        </p>
 
-            <div className="mt-4 space-y-2 text-white/80">
-              <p>
-                <span className="text-white/60">Email: </span>
-                your.email@example.com
-              </p>
-              <p>
-                <span className="text-white/60">Location: </span>
-                United States
-              </p>
-            </div>
-          </div>
-
-          {/* placeholder form (no backend yet) */}
-          <form className="space-y-4">
-            <input
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 outline-none focus:border-white/20"
-              placeholder="Your name"
-            />
-            <input
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 outline-none focus:border-white/20"
-              placeholder="Your email"
-            />
-            <textarea
-              rows={5}
-              className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 outline-none focus:border-white/20"
-              placeholder="Message"
-            />
-
-            <button
-              type="button"
-              className="rounded-xl bg-white/10 px-5 py-3 font-bold text-white transition hover:bg-white/15"
-            >
-              Send (wire up later)
-            </button>
-          </form>
+        <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+          <Link
+            href="https://linkedin.com/in/safwan-kader"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-link contact-link-primary"
+          >
+            <FaLinkedin aria-hidden="true" />
+            Message me on LinkedIn
+          </Link>
+          <Link
+            href="https://github.com/skaderDev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-link"
+          >
+            <FaGithub aria-hidden="true" />
+            View my GitHub
+          </Link>
         </div>
-      </GlassCard>
+      </ContentCard>
     </PageShell>
   );
 }

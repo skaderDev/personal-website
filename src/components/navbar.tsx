@@ -3,8 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { FaDownload } from "react-icons/fa";
-
 import { HiOutlineHome } from "react-icons/hi2";
 import { HiOutlineUser } from "react-icons/hi2";
 import { HiOutlineBriefcase } from "react-icons/hi2";
@@ -30,8 +28,7 @@ export default function Navbar() {
   return (
     <header className="navbar-shell">
       <div className="navbar-row">
-        {/* Left: Logo */}
-        <Link href="/" className="shrink-0 logo-pill">
+        <Link href="/" className="logo-pill" aria-label="Safwan Kader — home">
           <Image
             className="logo mx-2"
             src="/logo-white.svg"
@@ -42,7 +39,6 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Center: Dock */}
         <div className="navbar-center">
           <nav className="navbar-dock" aria-label="Primary navigation">
             {navbar_options.map((option) => (
@@ -50,26 +46,16 @@ export default function Navbar() {
                 key={option.title}
                 href={option.link}
                 className={`navbar-item ${isActive(option.link) ? "active" : ""}`}
+                aria-current={isActive(option.link) ? "page" : undefined}
+                title={option.title}
               >
-                <span className="nav-icon">{option.icon}</span>
-                <span>{option.title}</span>
+                <span className="nav-icon" aria-hidden="true">
+                  {option.icon}
+                </span>
+                <span className="nav-label">{option.title}</span>
               </Link>
             ))}
           </nav>
-        </div>
-
-        {/* Right: Download */}
-        <div className="navbar-right">
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Download Resume"
-          >
-            <button className="icon-button nav-download" type="button">
-              <FaDownload className="download-icon" />
-            </button>
-          </a>
         </div>
       </div>
     </header>

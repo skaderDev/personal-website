@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Safwan Kader — Personal Website
 
-## Getting Started
+A small portfolio built with Next.js, TypeScript, and Tailwind CSS.
 
-First, run the development server:
+Requires Node.js 20.9 or newer.
+
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production check
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+npm run lint
+npm run build
+```
 
-## Learn More
+The deployable static site is generated in `out/`.
 
-To learn more about Next.js, take a look at the following resources:
+## Deploying to GitHub Pages
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Push the `main` branch to GitHub, then open **Settings → Pages** in the
+repository and select **GitHub Actions** as the source. The included workflow
+builds and deploys the site on every push to `main`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+GitHub Pages automatically supplies the correct repository base path during the
+build. A custom domain can be added later from the same Pages settings screen.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Before publishing, confirm that the professional details in `src/app/about`,
+`src/app/experience`, and `src/app/projects` are current.
