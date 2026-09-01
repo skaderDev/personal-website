@@ -1,22 +1,30 @@
 type PageShellProps = {
+  id?: string;
   title: string;
   subtitle?: string;
   children: React.ReactNode;
 };
 
-export default function PageShell({ title, subtitle, children }: PageShellProps) {
+export default function PageShell({ id, title, subtitle, children }: PageShellProps) {
+  const sectionLabels: Record<string, string> = {
+    About: "01 — About",
+    Experience: "02 — Experience",
+    Projects: "03 — Selected work",
+    Lab: "04 — Lab notes",
+    Contact: "05 — Contact",
+  };
+
   return (
-    <section className="mt-6 sm:mt-10">
-      <header className="mb-6 text-center">
-        <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-          {title}
-        </h1>
+    <section id={id} className="page-shell" data-section-reveal>
+      <header className="page-header" data-reveal>
+        <p className="section-kicker">{sectionLabels[title] ?? title}</p>
+        <h1>{title}</h1>
         {subtitle ? (
-          <p className="mt-2 text-white/70">{subtitle}</p>
+          <p>{subtitle}</p>
         ) : null}
       </header>
 
-      <div className="space-y-6">{children}</div>
+      <div className="page-content">{children}</div>
     </section>
   );
 }

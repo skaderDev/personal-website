@@ -10,10 +10,10 @@ export default function ContentCard({
   return (
     <div
       className={[
-        "content-card rounded-2xl",
-        "p-6",
+        "content-card",
         className,
       ].join(" ")}
+      data-reveal
     >
       {children}
     </div>

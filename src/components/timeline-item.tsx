@@ -12,25 +12,23 @@ export default function TimelineItem({
   bullets,
 }: TimelineItemProps) {
   return (
-    <div className="relative pl-8">
-      <div className="absolute left-0 top-2 h-3 w-3 rounded-full bg-white/70" />
-      <div className="absolute left-[5px] top-6 h-full w-px bg-white/15" />
+    <article className="timeline-item" data-reveal>
 
       <div className="flex flex-col items-start justify-between gap-2 sm:flex-row sm:gap-4">
         <div>
-          <h3 className="text-lg font-bold text-white">{title}</h3>
-          <p className="text-white/70">{subtitle}</p>
+          <h3>{title}</h3>
+          <p className="timeline-subtitle">{subtitle}</p>
         </div>
-        <span className="shrink-0 rounded-full bg-white/10 px-3 py-1 text-sm text-white/70">
+        <span className="timeline-date">
           {date}
         </span>
       </div>
 
-      <ul className="mt-3 list-disc space-y-2 pl-5 text-white/75">
+      <ul>
         {bullets.map((b) => (
           <li key={b}>{b}</li>
         ))}
       </ul>
-    </div>
+    </article>
   );
 }

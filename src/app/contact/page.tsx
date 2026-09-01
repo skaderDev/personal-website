@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <PageShell
+      id="contact"
       title="Contact"
       subtitle="Want to talk about software, cloud systems, or an interesting project?"
     >

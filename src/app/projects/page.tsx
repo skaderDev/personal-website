@@ -10,13 +10,16 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <PageShell
+      id="projects"
       title="Projects"
-      subtitle="Things I’ve built to learn, explore ideas, and sharpen fundamentals."
+      subtitle="A few thoughtful builds, from product ideas to focused technical explorations."
     >
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="projects-grid">
         <ProjectCard
           title="Wayfeel"
           description="A location-based social app focused on expressive UI, calm interactions, and clean architecture."
+          purpose="An exploration of how a map-driven social product can feel expressive without becoming noisy."
+          featured
           tags={[
             "Next.js",
             "TypeScript",
@@ -34,6 +37,7 @@ export default function ProjectsPage() {
         <ProjectCard
           title="Tick"
           description="A personal finance and stock-tracking app built to explore full-stack architecture and data modeling."
+          purpose="A practical way to strengthen backend fundamentals through financial data and transaction workflows."
           tags={[
             "Spring Boot",
             "PostgreSQL",
@@ -50,6 +54,7 @@ export default function ProjectsPage() {
         <ProjectCard
           title="Fintech ML Sprint"
           description="A series of small machine learning experiments focused on market classification and signal exploration."
+          purpose="A focused way to build intuition around feature engineering and evaluation without chasing model complexity."
           tags={[
             "Python",
             "Machine Learning",

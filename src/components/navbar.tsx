@@ -3,27 +3,56 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { HiOutlineHome } from "react-icons/hi2";
-import { HiOutlineUser } from "react-icons/hi2";
-import { HiOutlineBriefcase } from "react-icons/hi2";
-import { HiOutlineFolder } from "react-icons/hi2";
-import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
+import { useEffect, useState } from "react";
+import {
+  HiOutlineBeaker,
+  HiOutlineBriefcase,
+  HiOutlineChatBubbleLeftRight,
+  HiOutlineFolder,
+  HiOutlineHome,
+  HiOutlineUser,
+} from "react-icons/hi2";
 import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi2";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const [activeSection, setActiveSection] = useState("home");
 
   const navbar_options = [
-    { title: "Home", link: "/", icon: <HiOutlineHome /> },
-    { title: "About", link: "/about", icon: <HiOutlineUser /> },
-    { title: "Experience", link: "/experience", icon: <HiOutlineBriefcase /> },
-    { title: "Projects", link: "/projects", icon: <HiOutlineFolder /> },
-    { title: "Contact", link: "/contact", icon: <HiOutlineChatBubbleLeftRight /> },
+    { title: "Home", link: "/#home", section: "home", icon: <HiOutlineHome /> },
+    { title: "About", link: "/#about", section: "about", icon: <HiOutlineUser /> },
+    { title: "Experience", link: "/#experience", section: "experience", icon: <HiOutlineBriefcase /> },
+    { title: "Projects", link: "/#projects", section: "projects", icon: <HiOutlineFolder /> },
+    { title: "Lab", link: "/#lab", section: "lab", icon: <HiOutlineBeaker /> },
+    { title: "Contact", link: "/#contact", section: "contact", icon: <HiOutlineChatBubbleLeftRight /> },
   ];
 
-  const isActive = (link: string) => {
-    if (link === "/") return pathname === "/";
-    return pathname === link || pathname.startsWith(link + "/");
+  useEffect(() => {
+    if (pathname !== "/") {
+      return;
+    }
+
+    const sections = navbar_options
+      .map(({ section }) => document.getElementById(section))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.find((entry) => entry.isIntersecting);
+        if (visible) setActiveSection(visible.target.id);
+      },
+      { rootMargin: "-28% 0px -62%", threshold: 0 },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+    // The navigation model is static, so pathname is the only reactive input.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
+  const isActive = (section: string) => {
+    if (pathname !== "/") return pathname === `/${section}`;
+    return activeSection === section;
   };
 
   const toggleTheme = () => {
@@ -36,7 +65,7 @@ export default function Navbar() {
   return (
     <header className="navbar-shell">
       <div className="navbar-row">
-        <Link href="/" className="logo-pill" aria-label="Safwan Kader — home">
+        <Link href="/#home" className="logo-pill" aria-label="Safwan Kader — home">
           <Image
             className="logo mx-2"
             src="/logo-white.svg"
@@ -53,8 +82,8 @@ export default function Navbar() {
               <Link
                 key={option.title}
                 href={option.link}
-                className={`navbar-item ${isActive(option.link) ? "active" : ""}`}
-                aria-current={isActive(option.link) ? "page" : undefined}
+                className={`navbar-item ${isActive(option.section) ? "active" : ""}`}
+                aria-current={isActive(option.section) ? "location" : undefined}
                 title={option.title}
               >
                 <span className="nav-icon" aria-hidden="true">

@@ -1,21 +1,17 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import Navbar from "@/components/navbar";
-import MouseGlow from "@/components/mouseglow";
+import MotionProvider from "@/components/motion-provider";
 import NycGallery from "@/components/nyc-gallery";
-import HorizontalPortfolio from "@/components/horizontal-portfolio";
 
 const themeScript = `
   (() => {
     try {
       const savedTheme = localStorage.getItem("color-theme");
-      const systemTheme = matchMedia("(prefers-color-scheme: light)").matches
-        ? "light"
-        : "dark";
       document.documentElement.dataset.theme =
         savedTheme === "light" || savedTheme === "dark"
           ? savedTheme
-          : systemTheme;
+          : "dark";
     } catch {
       document.documentElement.dataset.theme = "dark";
     }
@@ -63,19 +59,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout() {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
+        <MotionProvider />
         <NycGallery />
-        <MouseGlow className="mouse-glow" />
         <Navbar />
-        <main id="main-content" className="site-main">
-          <HorizontalPortfolio />
-        </main>
+        <main id="main-content" className="site-main">{children}</main>
       </body>
     </html>
   );
