@@ -12,7 +12,6 @@ import {
   HiOutlineHome,
   HiOutlineUser,
 } from "react-icons/hi2";
-import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi2";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -55,13 +54,6 @@ export default function Navbar() {
     return activeSection === section;
   };
 
-  const toggleTheme = () => {
-    const root = document.documentElement;
-    const nextTheme = root.dataset.theme === "light" ? "dark" : "light";
-    root.dataset.theme = nextTheme;
-    localStorage.setItem("color-theme", nextTheme);
-  };
-
   return (
     <header className="navbar-shell">
       <div className="navbar-row">
@@ -95,16 +87,6 @@ export default function Navbar() {
           </nav>
         </div>
 
-        <button
-          type="button"
-          className="theme-toggle"
-          onClick={toggleTheme}
-          aria-label="Toggle light and dark mode"
-          title="Toggle light and dark mode"
-        >
-          <HiOutlineSun className="theme-icon theme-icon-sun" aria-hidden="true" />
-          <HiOutlineMoon className="theme-icon theme-icon-moon" aria-hidden="true" />
-        </button>
       </div>
     </header>
   );

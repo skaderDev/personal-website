@@ -4,20 +4,6 @@ import Navbar from "@/components/navbar";
 import MotionProvider from "@/components/motion-provider";
 import NycGallery from "@/components/nyc-gallery";
 
-const themeScript = `
-  (() => {
-    try {
-      const savedTheme = localStorage.getItem("color-theme");
-      document.documentElement.dataset.theme =
-        savedTheme === "light" || savedTheme === "dark"
-          ? savedTheme
-          : "dark";
-    } catch {
-      document.documentElement.dataset.theme = "dark";
-    }
-  })();
-`;
-
 const productionHost =
   process.env.NEXT_PUBLIC_SITE_URL ??
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
@@ -61,10 +47,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-      </head>
+    <html lang="en">
       <body>
         <MotionProvider />
         <NycGallery />
